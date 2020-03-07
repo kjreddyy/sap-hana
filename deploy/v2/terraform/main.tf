@@ -8,9 +8,12 @@ module "common_infrastructure" {
   source              = "./modules/common_infrastructure"
   is_single_node_hana = "true"
   infrastructure      = var.infrastructure
+  jumpboxes           = var.jumpboxes
+  databases           = var.databases
+  sshkey              = var.sshkey
   software            = var.software
   options             = var.options
-  databases           = var.databases
+
 }
 
 # Create Jumpboxes and RTI box
@@ -21,6 +24,8 @@ module "jumpbox" {
   databases         = var.databases
   sshkey            = var.sshkey
   ssh-timeout       = var.ssh-timeout
+  software          = var.software
+  options           = var.options
   resource-group    = module.common_infrastructure.resource-group
   subnet-mgmt       = module.common_infrastructure.subnet-mgmt
   nsg-mgmt          = module.common_infrastructure.nsg-mgmt
@@ -34,8 +39,11 @@ module "jumpbox" {
 module "hdb_node" {
   source           = "./modules/hdb_node"
   infrastructure   = var.infrastructure
+  jumpboxes        = var.jumpboxes
   databases        = var.databases
   sshkey           = var.sshkey
+  software         = var.software
+  options          = var.options
   resource-group   = module.common_infrastructure.resource-group
   subnet-sap-admin = module.common_infrastructure.subnet-sap-admin
   nsg-admin        = module.common_infrastructure.nsg-admin
@@ -50,6 +58,7 @@ module "output_files" {
   infrastructure               = var.infrastructure
   jumpboxes                    = var.jumpboxes
   databases                    = var.databases
+  sshkey                       = var.sshkey
   software                     = var.software
   options                      = var.options
   storage-sapbits              = module.common_infrastructure.storage-sapbits

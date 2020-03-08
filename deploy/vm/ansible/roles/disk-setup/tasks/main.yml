@@ -9,9 +9,9 @@
     - sg3_utils
     - lvm2
   register: result
-  retries: 10
+  retries: "{{ package_retries_cnt }}"
   until: result.rc == 0
-  delay: 5
+  delay: "{{ package_retries_delay }}"
   tags:
   - disk_setup
 

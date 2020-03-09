@@ -184,12 +184,12 @@ variable "url_retries_delay" {
 
 variable "package_retries_cnt" {
   description = "The number of attempts to install packages"
-  default     = 0
+  default     = 10
 }
 
 variable "package_retries_delay" {
   description = "The time between each attempt to install packages"
-  default     = 0
+  default     = 10
 }
 
 variable "useHana2" {

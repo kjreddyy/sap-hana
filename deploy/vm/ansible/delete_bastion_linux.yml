@@ -1,13 +1,5 @@
 ---
-- hosts: localhost
-  tasks:
-    - include_vars:
-        file: "{{ config_json_file }}"
-        name: az_json
-    - debug:
-        msg: "config passed {{ az_json }}"
-
 - name: delete vm
   hosts: localhost
   roles:
-          - {role: delete-azure-vm, when: az_json.linux_bastion == true, az_resource_group: "{{ az_resource_group}}", az_vm_name: "{{ az_vm_name }}"}
+          - {role: delete-azure-vm, az_resource_group: "{{ az_resource_group}}", az_vm_name: "{{ az_vm_name }}"}
